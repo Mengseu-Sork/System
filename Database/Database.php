@@ -23,6 +23,7 @@ class Database
         }
     }
 
+    
     public function query($sql, $params = [])
     {
         try {
