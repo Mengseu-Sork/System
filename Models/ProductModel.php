@@ -23,14 +23,14 @@ class ProductModel{
                 products.category_id, 
                 categories.name AS category_name
                 FROM products 
-                LEFT JOIN categories ON products.category_id = categories.category_id
-                LEFT JOIN stock_entries ON products.product_id = stock_entries.product_id");
+                LEFT JOIN categories ON products.category_id = categories.category_id");
             return $result->fetchAll();
         } catch (Exception $e) {
             error_log("Error fetching products: " . $e->getMessage());
             return [];
         }
     }
+
 
     function getProductTypes() {
         try {
@@ -73,7 +73,7 @@ class ProductModel{
 
     function upstock_quantityProduct($data){
         try {
-            $stmt = "UPstock_quantity products SET 
+            $stmt = "UPDATE products SET 
                     name = :name, 
                     price = :price, 
                     category_id = :category_id, 
@@ -116,8 +116,6 @@ class ProductModel{
     
     function deleteProduct($id){
         try {
-            $stmt = "DELETE FROM stock_entries WHERE product_id = :id";
-            $this->DB->query($stmt, ['id' => $id]);
     
             $stmt = "DELETE FROM products WHERE product_id = :product_id";
             $this->DB->query($stmt, ['product_id' => $id]);

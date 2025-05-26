@@ -1,21 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const currentPath = window.location.pathname;
-    const links = document.querySelectorAll('.sidebar-link');
+   //Active link
+   document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname;
+        const links = document.querySelectorAll('.sidebar-link');
 
-    links.forEach(link => {
-      const href = link.getAttribute('href');
+        links.forEach(link => {
+        const href = link.getAttribute('href');
 
-      if (href === currentPath) {
-        link.classList.add('bg-green-500', 'text-white');
-        link.querySelectorAll('i, span').forEach(el => {
-          el.classList.remove('text-gray-500', 'text-green-500');
-          el.classList.add('text-white');
+        if (href === currentPath) {
+            link.classList.add('bg-green-500', 'text-white');
+            link.querySelectorAll('i, span').forEach(el => {
+            el.classList.remove('text-gray-500', 'text-green-500');
+            el.classList.add('text-white');
+            });
+        }
         });
-      }
     });
-  });
 
-    
+   // search product 
     function searchProducts() {
         let input = document.getElementById("searchInput").value.toLowerCase().trim();
         let table = document.getElementById("productsTable");
@@ -75,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     dropdown.classList.toggle('hidden');
 }
 
+
+//show imahe
 function previewImage(input) {
     const preview = document.getElementById('image-preview');
     const file = input.files[0];
@@ -114,3 +117,17 @@ dropZone.addEventListener('drop', function (e) {
         previewImage(imageInput);
     }
 });
+
+
+//Drink
+function searchCateories() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#product-table-body tr");
+
+    rows.forEach(row => {
+        const name = row.cells[0].textContent.toLowerCase();
+        const description = row.cells[1].textContent.toLowerCase();
+        const match = name.includes(input) || description.includes(input);
+        row.style.display = match ? "" : "none";
+    });
+}

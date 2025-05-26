@@ -74,16 +74,12 @@ class ProductController extends BaseController {
             session_start();
         }
         
-        if (!isset($_SESSION['user'])) {
-            header("Location: views/auth/login");
-            exit();
-        }
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $product = $this->model->getProductById($id);
             if ($product) {
                 $categories = $this->model->getAllCategories();
-                $this->view('productsList/edit', ['product' => $product, 'categories' => $categories]);
+                $this->view('/products/edit', ['product' => $product, 'categories' => $categories]);
             } else {
                 echo "Product not found";
                 $this->redirect('/productsList');
@@ -93,9 +89,9 @@ class ProductController extends BaseController {
         }
     }
     
-    function upstock_quantity() {
+    function update() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $id = $_POST['id'];
+            $id = $_POST['product_id'];
             
             // Image Upload Handling
             $imageName = null;
@@ -111,16 +107,15 @@ class ProductController extends BaseController {
                     return;
                 }
             } else {
-                // If no new image is uploaded, keep the existing image
                 $product = $this->model->getProductById($id);
                 $imageName = $product['image'];
             }
 
             $data = [
-                'id' => $id,
+                'product_id' => $id,
                 'name' => $_POST['name'],
                 'price' => floatval($_POST['price']),
-                'category_id' => $_POST['type'],
+                'category_id' => $_POST['category_id'],
                 'stock_quantity' => $_POST['stock_quantity'],
                 'image' => $imageName,
             ];
@@ -133,7 +128,7 @@ class ProductController extends BaseController {
         }
     }
     
-    function delete() {
+    function destroy() {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             if ($this->model->deleteProduct($id)) {
@@ -150,12 +145,8 @@ class ProductController extends BaseController {
             session_start();
         }
         
-        if (!isset($_SESSION['user'])) {
-            header("Location: views/auth/login");
-            exit();
-        }
-        if ($id === null && isset($_GET['id'])) {
-            $id = $_GET['id'];
+        if ($id === null && isset($_GET['product_id'])) {
+            $id = $_GET['product_id'];
         }
         
         if (!$id) {
@@ -169,15 +160,14 @@ class ProductController extends BaseController {
         if ($product && isset($product['category_id'])) {
             $category = $this->model->getCategoryById($product['category_id']);
         }
-        
-        // Check if product exists
+
         if ($product) {
-            $this->view('/productsList/show', [
+            $this->view('/products/detail', [
                 'product' => $product,
                 'category' => $category
             ]);
         } else {
-            $this->view('/productsList/show', [
+            $this->view('/products/detail', [
                 'product' => null,
                 'category' => null
             ]);

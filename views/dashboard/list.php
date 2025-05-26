@@ -18,7 +18,7 @@
       <div class="flex items-center justify-between p-8 bg-white rounded-2xl shadow-md">
         <div class="ml-4">
           <h6 class="text-5xs font-semibold tracking-wide text-green-500 uppercase">Stock</h6>
-          <div class="text-3xl font-bold text-gray-700 mt-2">00</div>
+          <div class="text-3xl font-bold text-gray-700 mt-2"><?= $stockProducts ?></div>
         </div>
         <svg class="w-14 h-14 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -42,18 +42,84 @@
       <div class="flex items-center justify-between p-8 bg-white rounded-2xl shadow-md">
         <div class="ml-4">
           <h6 class="text-5xs font-semibold tracking-wide text-green-500 uppercase">Products</h6>
-          <div class="text-3xl font-bold text-gray-700 mt-2">00</div>
+          <div class="text-3xl font-bold text-gray-700 mt-2"><?= $totalProducts ?></div>
         </div>
         <svg class="w-14 h-14 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
         </svg>
       </div>
-      <div class="grid gap-4 ml-1 mr-4 mb-16">
-          <div class="bg-white rounded-md dark:bg-darker p-4 mr-4 rounded-lg shadow">
-
-          </div>
-      </div>
     </div>
+
+      <!-- Chart -->
+      <div class="flex flex-col justify-between md:flex-row gap-8 w-full mt-8">
+        <div class="bg-white p-4 rounded-xl shadow-md flex-1">
+          <h3 class="text-lg font-semibold mb-2">Products Sales</h3>
+          <canvas id="salesChart" ></canvas>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-md flex-1">
+          <h3 class="text-lg font-semibold mb-2">Our Customers</h3>
+          <canvas id="customersChart" ></canvas>
+        </div>
+      </div>
+
   </div>
 </main>
+
+
+
+  <script>
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    new Chart(salesCtx, {
+      type: 'line',
+      data: {
+        labels: [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ],
+        datasets: [
+          {
+            label: 'Sales',
+            data: [0, 10, 5, 2, 20, 30, 45, 24, 18, 26, 35, 40],
+            borderColor: 'green',
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            tension: 0.4
+          },
+          {
+            label: 'Earning',
+            data: [15, 14, 11, 18, 30, 10, 25, 12, 22, 28, 33, 38],
+            borderColor: '#4ade80',
+            backgroundColor: 'rgba(6, 212, 27, 0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const customersCtx = document.getElementById('customersChart').getContext('2d');
+    new Chart(customersCtx, {
+      type: 'pie',
+      data: {
+        labels: ['In Stock', 'Out Stock', 'Order'],
+        datasets: [{
+          data: [60, 15, 25],
+          backgroundColor: ['#16a34a', '#22c55e', '#4ade80']
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+  </script>

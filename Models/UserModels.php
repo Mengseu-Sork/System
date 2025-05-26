@@ -20,7 +20,7 @@ class UserModel {
     function createUser($data)
     {
         $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
-        $role = isset($data['role']) ? $data['role'] : 'employee';
+        $role = isset($data['role']) ? $data['role'] : 'user';
     
         $sql = "INSERT INTO users (image, first_name, last_name, email, phone_number, password, role) 
                 VALUES ('{$data['image']}', '{$data['first_name']}', '{$data['last_name']}', '{$data['email']}', 

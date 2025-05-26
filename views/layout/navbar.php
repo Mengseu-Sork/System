@@ -1,7 +1,8 @@
-
+<?php
+$user = $_SESSION['user'] ?? null;
+?>
 <div x-data="setup()" x-init="$refs.loading.classList.add('hidden'); setColors(color);" :class="{ 'dark': isDark}">
       <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark">
-        <!-- Sidebar -->
         <aside class="flex-shrink-0 hidden w-64 bg-white dark:bg-darker pl-6 md:block">
           <div class="flex flex-col h-full">
             <nav aria-label="Main" class="flex-1 px-2 py-4 space-y-2">
@@ -44,7 +45,7 @@
 
                 <div>
 
-                  <!-- active classes 'bg-primary-100 dark:bg-primary' -->
+
                   <a
                     href="/productsList"
                     class="group sidebar-link flex items-center p-2 text-gray-500 transition-colors rounded-md hover:bg-primary-100 dark:hover:bg-primary"
@@ -57,22 +58,9 @@
                 </div>
 
                 <div>
-                  <!-- active classes 'bg-primary-100 dark:bg-primary' -->
-                  <a
-                    href="#"
-                    class="group sidebar-link flex items-center p-2 text-gray-500 transition-colors rounded-md hover:bg-primary-100 dark:hover:bg-primary"
 
-                  >
-                    <span aria-hidden="true">
-                      <i class="fas fa-warehouse warehouse-icon text-green-500 group-hover:text-white"></i>
-                    <span class="ml-5 text-xl group-hover:text-white"> Stock </span>
-                  </a>
-                </div>
-
-                <div>
-                  <!-- active classes 'bg-primary-100 dark:bg-primary' -->
                   <a
-                    href="#"
+                    href="/categoriesList"
                     class="group sidebar-link flex items-center p-2 text-gray-500 transition-colors rounded-md hover:bg-primary-100 dark:hover:bg-primary"
 
                   >
@@ -82,7 +70,7 @@
                   </a>
                 </div>
 
-                <!-- Authentication links -->
+
                 <!-- <div>
                   <a
                     href="#"
@@ -101,7 +89,7 @@
                 <!-- Layouts links -->
                 <div>
                   <a
-                      href="#"
+                      href="/payment"
                       class="group sidebar-link flex items-center p-2 text-gray-500 transition-colors rounded-md hover:bg-primary-100 dark:hover:bg-primary"
 
                     >
@@ -147,7 +135,7 @@
           <header class="flex-1 bg-white"> 
                   <div class="flex items-center justify-between p-2">
                       <div>
-                        <h1 class="ml-6 text-xl text-green-500 font-bold">MANAGEMENT</h1>
+                        <h1 class="ml-6 text-3xl text-green-500 font-bold">MANAGEMENT</h1>
                       </div>
                       <nav aria-label="Secondary" class="hidden space-x-6 md:flex md:items-center mr-4">
                             <button id="bellIcon" class="relative focus:outline-none ">
@@ -165,18 +153,18 @@
                               onclick="toggleProfile()"
                               class="block transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
                               <span class="sr-only">User menu</span>
-                              <a href="/profile">
+                              <a href="/profile" class="flex items-center gap-2">
                                   <div class="relative inline-block">
                                       <!-- Profile Image -->
                                       <img class="w-10 h-10 rounded-full object-cover"
-                                          src="" alt="Profile"/>
+                                          src="../Assets/images/uploads/<?= $user["image"]?>" alt="Profile"/>
 
                                       <!-- Active Indicator -->
-                                      <!-- <?php if ($user['active'] == 1): ?>
+                                      <?php if ($user['active'] == 1): ?>
                                           <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-1 border-white rounded-full"></div>
                                       <?php else: ?>
                                           <div class="w-0 h-0 "></div>
-                                      <?php endif; ?> -->
+                                      <?php endif; ?>
                                   </div>
                               </a>
                           </button>
