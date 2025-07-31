@@ -6,6 +6,7 @@ require_once "Controllers/ProductController.php";
 require_once "Controllers/CategoryController.php";
 require_once "Controllers/AuthController.php";
 require_once "Controllers/PaymentController.php";
+require_once "Controllers/ProfileController.php";
 
 
 $routes = new Router();
@@ -22,6 +23,9 @@ $routes->get('/auth/logout', [AuthController::class, 'logout']);
 // dashboard
 $routes->get('/Dashboard', [DashboardController::class, 'index']);
 
+
+// Profile user
+$routes->get('/profile', [ProfileController::class, 'profile']);
 // Pages
 
 

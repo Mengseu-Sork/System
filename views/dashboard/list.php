@@ -54,12 +54,25 @@
       <!-- Chart -->
       <div class="flex flex-col justify-between md:flex-row gap-8 w-full mt-8">
         <div class="bg-white p-4 rounded-xl shadow-md flex-1">
-          <h3 class="text-lg font-semibold mb-2">Products Sales</h3>
+          <h3 class="text-lg font-semibold mb-2 text-green-500 ">Products Sales</h3>
           <canvas id="salesChart" ></canvas>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-md flex-1">
-          <h3 class="text-lg font-semibold mb-2">Our Customers</h3>
-          <canvas id="customersChart" ></canvas>
+        <div class="flex-1 bg-white p-4 rounded-xl shadow-md">
+          <h3 class="text-lg font-semibold text-green-500 mb-4">Out of Stock Products</h3>
+          <div class="overflow-x-auto mx-auto h-48 overflow-y-auto custom-scroll">
+            <table id="outOfStockTable" class="w-full table-auto border-collapse">
+              <!-- <thead>
+                <tr class="bg-green-500 text-white uppercase text-xs sm:text-sm leading-normal">
+                  <th class="py-3 px-6 text-left text-5sml">Image</th>
+                  <th class="py-3 px-6 text-5sml">Name</th>
+                  <th class="py-3 px-6 text-5sml">Stock</th>
+                </tr>
+              </thead> -->
+              <tbody id="outOfStockList" class="bg-white">
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -69,57 +82,63 @@
 
 
   <script>
-    const salesCtx = document.getElementById('salesChart').getContext('2d');
-    new Chart(salesCtx, {
-      type: 'line',
-      data: {
-        labels: [
-          'January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'
-        ],
-        datasets: [
-          {
-            label: 'Sales',
-            data: [0, 10, 5, 2, 20, 30, 45, 24, 18, 26, 35, 40],
-            borderColor: 'green',
-            backgroundColor: 'transparent',
-            borderWidth: 2,
-            tension: 0.4
-          },
-          {
-            label: 'Earning',
-            data: [15, 14, 11, 18, 30, 10, 25, 12, 22, 28, 33, 38],
-            borderColor: '#4ade80',
-            backgroundColor: 'rgba(6, 212, 27, 0.1)',
-            borderWidth: 2,
-            tension: 0.4,
-            fill: true
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+  const salesCtx = document.getElementById('salesChart').getContext('2d');
+  new Chart(salesCtx, {
+    type: 'line',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: [
+        {
+          label: 'Sales',
+          data: [0, 10, 5, 2, 20, 30, 45, 24, 18, 26, 35, 40],
+          borderColor: 'green',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          tension: 0.4
+        },
+        {
+          label: 'Earning',
+          data: [15, 14, 11, 18, 30, 10, 25, 12, 22, 28, 33, 38],
+          borderColor: '#4ade80',
+          backgroundColor: 'rgba(6, 212, 27, 0.1)',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
+    }
+  });
+
+
+  fetch('../../Models/GetStockDataModel.php')
+    .then(res => res.json())
+    .then(products => {
+      const tbody = document.getElementById('outOfStockList');
+      products.forEach(p => {
+        const row = document.createElement('tr');
+        row.className = 'duration-200 rounded-lg shadow-md transition bg-white border-b border-green-500';
+        const quantityCell = parseInt(p.stock_quantity) === 0
+        ? `<td class="py-3 px-6 text-center text-sm text-red-600 font-semibold">Out Stock</td>`
+        : `<td class="py-3 px-6 text-center text-sm">${p.stock_quantity}</td>`;
+
+        row.innerHTML = `
+          <td class="py-3 px-6 text-center text-sm">
+            <img src="../Assets/images/uploads/${p.image}" alt="${p.name}" width="30">
+          </td>
+          <td class="py-3 px-6 text-center text-sm">${p.name}</td>
+          ${quantityCell}
+        `;
+        tbody.appendChild(row);
+      });
     });
 
-    const customersCtx = document.getElementById('customersChart').getContext('2d');
-    new Chart(customersCtx, {
-      type: 'pie',
-      data: {
-        labels: ['In Stock', 'Out Stock', 'Order'],
-        datasets: [{
-          data: [60, 15, 25],
-          backgroundColor: ['#16a34a', '#22c55e', '#4ade80']
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-
-  </script>
+</script>

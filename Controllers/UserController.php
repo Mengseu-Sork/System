@@ -120,6 +120,9 @@ class UserController extends BaseController
 
     function show($id)
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user = $this->model->show($id);
         $this->view('users/detail', ['user' => $user]); 
     }

@@ -33,7 +33,7 @@
                             <div class="flex flex-1 gap-8 overflow-x-auto">
 
                             <!-- Drafts -->
-                                <div class="w-56 bg-blue-600 text-center text-white rounded-lg p-5">
+                                <button class="w-56 bg-blue-600 text-center text-white rounded-lg p-5">
                                     <div class="flex items-center justify-center gap-2 text-sm mb-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -43,10 +43,10 @@
                                     </div>
                                     <div class="text-4xl font-bold mb-2">72</div>
                                     <div class="text-sm opacity-80">32 Creators</div>
-                                </div>
+                                </button>
 
                                 <!-- Pending -->
-                                <div class="w-56 bg-yellow-500 text-center text-white rounded-lg p-5">
+                                <button class="w-56 bg-yellow-500 text-center text-white rounded-lg p-5">
                                     <div class="flex items-center justify-center gap-2 text-sm mb-6">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="10"/>
@@ -56,10 +56,10 @@
                                     </div>
                                     <div class="text-4xl font-bold mb-2">122</div>
                                     <div class="text-sm opacity-80">60 Creators</div>
-                                </div>
+                                </button>
 
                                 <!-- Paid -->
-                                <div class="w-56 bg-green-600 text-center text-white rounded-lg p-5">
+                                <button class="w-56 bg-green-600 text-center text-white rounded-lg p-5">
                                     <div class="flex items-center justify-center gap-2 text-sm mb-6">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="text-4xl font-bold mb-2">96</div>
                                     <div class="text-sm opacity-80">57 Creators</div>
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>
